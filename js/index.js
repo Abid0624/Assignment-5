@@ -19,7 +19,11 @@ function donationHandleByCommonFunction(button,input,initialAmount,sectionName){
   button.addEventListener('click',function(){
   
     const inputValue = getInputValueById(input.id);
-    if(inputValue <= 0 || isNaN(inputValue)){
+    const total = getInputId('total-amount');
+    const totalNumber = parseFloat(total.innerText);
+
+
+    if(inputValue <= 0 || isNaN(inputValue) || inputValue > totalNumber){
       alert('Invalid Input!')
       return;
     }
@@ -29,8 +33,8 @@ function donationHandleByCommonFunction(button,input,initialAmount,sectionName){
     const newTotal = inputValue + previousAmountValue;
     initialAmount.innerText = newTotal;
 
-    const total = getInputId('total-amount');
-    const totalNumber = parseFloat(total.innerText);
+    
+    
     const final = totalNumber - inputValue;
     total.innerText = final;
     
@@ -40,13 +44,13 @@ function donationHandleByCommonFunction(button,input,initialAmount,sectionName){
     div.className = "w-11/12 mx-auto bg-white p-3 rounded-md mb-4 border-2 border-slate-500"
     div.innerHTML =`
     <h3 class="text-xl p-2">${inputValue} Taka is ${sectionName}</h3>
-    <p class ="text-slate-500 p-2">Date: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
+    <p class ="text-slate-500 p-2 bg-white">Date: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}
       </p>
      `
     historyList.insertBefore(div,historyList.firstChild);
 
     // showing modal
-    document.getElementById("my_modal_1").showModal();
+    document.getElementById("donation-modal").showModal();
 
   })
 }
